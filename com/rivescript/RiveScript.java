@@ -1467,7 +1467,7 @@ public class RiveScript {
 		// Simple regexps are simple.
 		regexp = regexp.replaceAll("\\*", "(.+?)");             // *  ->  (.+?)
 		regexp = regexp.replaceAll("#",   "(\\\\d+?)");         // #  ->  (\d+?)
-		regexp = regexp.replaceAll("_",   "(\\\\w+?)");     // _  ->  ([A-Za-z ]+?)
+		regexp = regexp.replaceAll("_",   "(\\\\w+?)");     // _  ->  ([A-Za-zก-๙ ]+?)
 		regexp = regexp.replaceAll("\\{weight=\\d+\\}", "");    // Remove {weight} tags
 		regexp = regexp.replaceAll("<zerowidthstar>", "(.*?)"); // *  ->  (.*?)
 
@@ -1506,7 +1506,7 @@ public class RiveScript {
 		}
 
 		// Make \w more accurate for our purposes.
-		regexp = regexp.replaceAll("\\\\w", "[a-z ]");
+		regexp = regexp.replaceAll("\\\\w", "[a-zก-๙ ]");
 
 		// Filter in arrays.
 		if (regexp.indexOf("@") > -1) {
@@ -1548,7 +1548,7 @@ public class RiveScript {
 			while (mBot.find()) {
 				String tag = mBot.group(0);
 				String var = mBot.group(1);
-				String value = vars.get(var).toLowerCase().replace("[^a-z0-9 ]+","");
+				String value = vars.get(var).toLowerCase().replace("[^a-z0-9ก-๙ ]+","");
 
 				// Have this?
 				if (vars.containsKey(var)) {
@@ -1567,7 +1567,7 @@ public class RiveScript {
 			while (mGet.find()) {
 				String tag = mGet.group(0);
 				String var = mGet.group(1);
-				String value = profile.get(var).toLowerCase().replaceAll("[^a-z0-9 ]+","");
+				String value = profile.get(var).toLowerCase().replaceAll("[^a-z0-9ก-๙ ]+","");
 
 				// Have this?
 				regexp = regexp.replace(tag, value);
@@ -1583,7 +1583,7 @@ public class RiveScript {
 			while (mInput.find()) {
 				String tag   = mInput.group(0);
 				int    index = Integer.parseInt(mInput.group(1));
-				String text  = profile.getInput(index).toLowerCase().replaceAll("[^a-z0-9 ]+","");
+				String text  = profile.getInput(index).toLowerCase().replaceAll("[^a-z0-9ก-๙ ]+","");
 				regexp       = regexp.replace(tag, text);
 			}
 		}
@@ -1593,7 +1593,7 @@ public class RiveScript {
 			while (mReply.find()) {
 				String tag   = mReply.group(0);
 				int    index = Integer.parseInt(mReply.group(1));
-				String text  = profile.getReply(index).toLowerCase().replaceAll("[^a-z0-9 ]+","");
+				String text  = profile.getReply(index).toLowerCase().replaceAll("[^a-z0-9ก-๙ ]+","");
 				regexp       = regexp.replace(tag, text);
 			}
 		}
@@ -1666,7 +1666,7 @@ public class RiveScript {
 			while (mInput.find()) {
 				String tag   = mInput.group(0);
 				int    index = Integer.parseInt(mInput.group(1));
-				String text  = profile.getInput(index).toLowerCase().replaceAll("[^a-z0-9 ]+","");
+				String text  = profile.getInput(index).toLowerCase().replaceAll("[^a-z0-9ก-๙ ]+","");
 				reply        = reply.replace(tag, text);
 			}
 		}
@@ -1676,7 +1676,7 @@ public class RiveScript {
 			while (mReply.find()) {
 				String tag   = mReply.group(0);
 				int    index = Integer.parseInt(mReply.group(1));
-				String text  = profile.getReply(index).toLowerCase().replaceAll("[^a-z0-9 ]+","");
+				String text  = profile.getReply(index).toLowerCase().replaceAll("[^a-z0-9ก-๙ ]+","");
 				reply        = reply.replace(tag, text);
 			}
 		}
@@ -1983,7 +1983,7 @@ public class RiveScript {
 		message = com.rivescript.Util.substitute(subs_s, subs, message);
 
 		// Sanitize what's left.
-		message = message.replaceAll("[^a-z0-9 ]", "");
+		message = message.replaceAll("[^a-z0-9ก-๙ ]", "");
 		return message;
 	}
 
